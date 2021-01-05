@@ -14,4 +14,4 @@ def arm():
     time.sleep(2)
     kit.servo[1].angle = 10
     time.sleep(2)
-    kit.servo[1].angle = 0
+    kit.servo[1].angle = 0 
