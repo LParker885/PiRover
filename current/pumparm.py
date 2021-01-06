@@ -1,3 +1,4 @@
+#This code arms the ESC for the pump
 from adafruit_servokit import ServoKit
 kit = ServoKit(channels=16)
 import time
