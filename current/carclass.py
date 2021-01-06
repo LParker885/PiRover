@@ -1,3 +1,4 @@
+#this code is not yet updated for the new vehicle, but will be soon!
 import RPi.GPIO as IO
 import time
 import atexit
