@@ -1,4 +1,4 @@
-# Write your code here :-)
+#This sends data from the camera to the website
 
 import io
 import picamera
