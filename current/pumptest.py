@@ -1,3 +1,5 @@
+# a simple test to check that the pump is working and the valve servos work. 
+
 from adafruit_servokit import ServoKit
 kit = ServoKit(channels=16)
 import time
