@@ -1,97 +1,66 @@
-#this code is not yet updated for the new vehicle, but will be soon!
 import RPi.GPIO as IO
 import time
+import board
 import atexit
-from sense_hat import SenseHat
-
-
-sense = SenseHat()
-sense.clear()
-
-
-
-IO.setmode(IO.BCM)
-IO.setwarnings(False)
-
+from adafruit_servokit import ServoKit
+from adafruit_motorkit import MotorKit
+Motor = MotorKit(i2c=board.I2C())
+Servos = ServoKit(channels=16)
 
 
 class Car:
     def __init__(self):
-        IO.setup(9, IO.OUT)
-        IO.setup(14, IO.OUT)
-        IO.setup(17, IO.OUT)
-        IO.setup(4, IO.OUT)
-        IO.setup(11, IO.OUT)
-        IO.setup(18, IO.OUT)
-        IO.setup(7, IO.OUT)
-        IO.setup(15, IO.OUT)
-        IO.setup(21, IO.OUT)
-        IO.output(21, IO.LOW)
-        self.p1 = IO.PWM(14 , 1)
-        self.p2 = IO.PWM(4 , 1)
-        self.p3 = IO.PWM(18 , 1)
-        self.p4 = IO.PWM(15 , 1)
-        self.p1.start(0)
-        self.p2.start(0)
-        self.p3.start(0)
-        self.p4.start(0)
+        Servos.servo[0].set_pulse_width_range(1100,2400)
+        Servos.servo[2].set_pulse_width_range(900,2400)
+        Servos.servo[11].set_pulse_width_range(1000,1500)
+        Servos.servo[5].set_pulse_width_range(1350,2400)
+        Servos.servo[4].set_pulse_width_range(1400,2400)
+        Motor.motor2.throttle = 0
+        #self.armPump()
 
 
-    def motorsEnabled(self):
-        IO.output(21, IO.HIGH)
+    def armPump(self):
+        Servos.servo[11].angle = 0
+        time.sleep(2)
+        Servos.servo[11].angle = 180
+        time.sleep(1)
+        Servos.servo[11].angle = 0
+        time.sleep(2)
 
-    def motorsDisabled(self):
-        IO.output(21, IO.LOW)
+    def stop(self):
+        Motor.motor2.throttle = 0
+        Servos.servo[2].angle = 90
 
-    def motorsOn(self):
-        self.motorsEnabled()
-        self.p1.ChangeDutyCycle(50)
-        self.p2.ChangeDutyCycle(50)
-        self.p3.ChangeDutyCycle(50)
-        self.p4.ChangeDutyCycle(50)
-
-    def motorsOff(self):
-        self.motorsDisabled()
-        self.p1.ChangeDutyCycle(0)
-        self.p2.ChangeDutyCycle(0)
-        self.p3.ChangeDutyCycle(0)
-        self.p4.ChangeDutyCycle(0)
+    def drive(self,heading,throttle,turntablethrottle,teim):
+        Motor.motor2.throttle = throttle
+        Servos.servo[0].angle = heading
+        Servos.servo[2].angle = turntablethrottle
+        time.sleep(teim)
+        self.stop()
 
 
 
-    def goSpeed(self,speed1,speed2):
-        self.motorsOn()
-        self.p1.ChangeFrequency(speed1)
-        self.p2.ChangeFrequency(speed1)
-        self.p3.ChangeFrequency(speed2)
-        self.p4.ChangeFrequency(speed2)
+    def armMove(self,s,e,h,t,l):
+        Servos.servo[5].angle = ((90*(-1*s))+90)
+        Servos.servo[4].angle = (90*(e))+90
+        Servos.servo[6].angle = (90*(h))+90
+        Servos.servo[11].angle = t*(180/100)
+        time.sleep(l)
+        Servos.servo[11].angle = 0
+        Servos.servo[5].angle = 90
+        Servos.servo[4].angle = 90
+        Servos.servo[6].angle = 90
 
-    def goTank(self,speed1,speed2, direction1, direction2):
-        if direction1 == 1:
-            IO.output(9, IO.LOW)
-            IO.output(17, IO.LOW)
-        else:
-            IO.output(9, IO.HIGH)
-            IO.output(17, IO.HIGH)
-        if direction2 == 1:
-            IO.output(7, IO.LOW)
-            IO.output(11, IO.LOW)
-        else:
-            IO.output(7, IO.HIGH)
-            IO.output(11, IO.HIGH)
-        self.goSpeed(speed1, speed2)
+car = Car()
 
-    def getSteer(self):
-        o = sense.get_orientation()
-        pitch = round(o["pitch"])
-        roll = round(o["roll"])
-        yaw = round(o["yaw"])
-        return yaw
+car.drive(90,-0.5,90,3)
 
-    def goSteer(self, direction, speed):
-        if(direction == 2):
-            self.goTank(speed,speed,0,1)
-        elif (direction == 1):
-            self.goTank(speed,speed,1,0)
+
+
+#car.armMove(-1,1,0,25,2)
+#car.armMove(1,-1,0,50,2)
+#car.armMove(0,1,0,25,2)
+#car.armMove(0,-1,0,30,2)
+
 
 
