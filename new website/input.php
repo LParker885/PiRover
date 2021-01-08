@@ -6,20 +6,25 @@ $yc = fgets($file);
 $th = fgets($file);
 $tu = fgets($file);
 $go = fgets($file);
+$tt = fgets($file);
+$j1 = fgets($file);
+$j2 = fgets($file);
+$j3 = fgets($file);
+
 
 $xca = $_REQUEST["xc"];
-
 $yca = $_REQUEST["yc"];
-
 $tha = $_REQUEST["th"];
-
 $tua = $_REQUEST["tu"];
-
 $goa = $_REQUEST["go"];
+$tta = $_REQUEST["tt"];
+
+$j1a = $_REQUEST["j1"];
+$j2a = $_REQUEST["j2"];
+$j3a = $_REQUEST["j3"];
 
 
-
-if(is_numeric($xca) == true){
+if(is_numeric($xca) == true){   // If the data from the website is numeric, store that in the variable to be sent to control. If the previous data from the file is not numeric and the data from the website is not numeric, then make it the default number (90 or 0)
 $xc = $xca;
 }else if(is_numeric($xc) == false){
 $xc = 90;
@@ -44,8 +49,26 @@ $go = $goa;
 }else if(is_numeric($go) == false){
 $go = 0;
 }
-
-
+if(is_numeric($tta) == true){
+$tt = $tta;
+}else if(is_numeric($tt) == false){
+$tt = 0;
+}
+if(is_numeric($j1a) == true){
+$j1 = $j1a;
+}else if(is_numeric($j1) == false){
+$j1 = 0;
+}
+if(is_numeric($j2a) == true){
+$j2 = $j2a;
+}else if(is_numeric($j2) == false){
+$j2 = 0;
+}
+if(is_numeric($j3a) == true){
+$j3 = $j3a;
+}else if(is_numeric($j3) == false){
+$j3 = 0;
+}
 
 
 
@@ -64,6 +87,14 @@ fwrite($file,"\n");
 fwrite($file,$tu);
 fwrite($file,"\n");
 fwrite($file,$go);
+fwrite($file,"\n");
+fwrite($file,$tt);
+fwrite($file,"\n");
+fwrite($file,$j1);
+fwrite($file,"\n");
+fwrite($file,$j2);
+fwrite($file,"\n");
+fwrite($file,$j3);
 fclose($file);
 
 
