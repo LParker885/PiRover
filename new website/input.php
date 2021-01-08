@@ -10,7 +10,7 @@ $tt = fgets($file);
 $j1 = fgets($file);
 $j2 = fgets($file);
 $j3 = fgets($file);
-
+$as = fgets($file);
 
 $xca = $_REQUEST["xc"];
 $yca = $_REQUEST["yc"];
@@ -22,7 +22,7 @@ $tta = $_REQUEST["tb"];
 $j1a = $_REQUEST["j1"];
 $j2a = $_REQUEST["j2"];
 $j3a = $_REQUEST["j3"];
-
+$asa = $_REQUEST["as"];
 
 if(is_numeric($xca) == true){   // If the data from the website is numeric, store that in the variable to be sent to control. If the previous data from the file is not numeric and the data from the website is not numeric, then make it the default number (90 or 0)
 $xc = $xca;
@@ -69,7 +69,11 @@ $j3 = $j3a;
 }else if(is_numeric($j3) == false){
 $j3 = 0;
 }
-
+if(is_numeric($asa) == true){
+$as = $asa;
+}else if(is_numeric($as) == false){
+$as = 0;
+}
 
 
 
@@ -95,6 +99,8 @@ fwrite($file,"\n");
 fwrite($file,$j2);
 fwrite($file,"\n");
 fwrite($file,$j3);
+fwrite($file,"\n");
+fwrite($file,$as);
 fclose($file);
 
 
