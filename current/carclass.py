@@ -16,7 +16,10 @@ class Car:
         Servos.servo[5].set_pulse_width_range(1350,2400)
         Servos.servo[4].set_pulse_width_range(1400,2400)
         Motor.motor2.throttle = 0
-        #self.armPump()
+        
+     
+            
+           
 
 
     def armPump(self):
@@ -116,8 +119,8 @@ class Car:
          
         
 #possible ranges of paramaters!        
-#For the drive function: (0-180,-1-1,0-180)
-#for the arm function: (-1-1,-1-1,-1-1,0-100)
+#For the drive function: self.drive(0-180,-1-1,0-180,time in seconds)
+#for the arm function: self.armGo(-1-1,-1-1,-1-1,0-100,time in seconds)
    
 
 
