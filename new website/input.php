@@ -17,7 +17,7 @@ $yca = $_REQUEST["yc"];
 $tha = $_REQUEST["th"];
 $tua = $_REQUEST["tu"];
 $goa = $_REQUEST["go"];
-$tta = $_REQUEST["tt"];
+$tta = $_REQUEST["tb"];
 
 $j1a = $_REQUEST["j1"];
 $j2a = $_REQUEST["j2"];
