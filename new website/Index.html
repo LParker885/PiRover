@@ -56,6 +56,11 @@ body{
 	<center id = "tout">Throttle: 0</center>
 </div>
 </center>
+<center> <div class="slidecontainer">
+ <input type="range" min="0" max="100" value="0" class="slider" id="armspeed">
+	<center id = "aout">Speed: 0</center>
+</div>
+</center>
 <center><div id="instructions">
   Throttle:q,e
   Steering: a,d
@@ -78,6 +83,7 @@ body{
    valj1 = 0;
    valj2 = 0;
    valj3 = 0;
+   valas = 0;
         $("#camfeed").on("mousemove", function(event) {
 	valx = event.offsetX;
 	valy = event.offsetY;
@@ -98,6 +104,16 @@ body{
 	   $("#tout").html("Throttle: " + valth);
 	   var xmlhttp = new XMLHttpRequest();	
         xmlhttp.open("GET", "input.php?th=" + valth, true)
+        xmlhttp.send(); 
+       
+        });
+	$("#armspeed").on("input", function() {
+	console.log(valas);
+	
+	  valas = $("#armspeed")[0].value;
+	   $("#armspeed").html("Speed: " + valas);
+	   var xmlhttp = new XMLHttpRequest();	
+        xmlhttp.open("GET", "input.php?as=" + valas, true)
         xmlhttp.send(); 
        
         });
