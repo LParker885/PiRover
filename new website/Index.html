@@ -22,6 +22,10 @@ body{
   opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
+  position: relative;
+  top: 10px;
+  bottom: 30px;
+  
 }
 
 /* Mouse-over effects */
@@ -58,7 +62,7 @@ body{
 </center>
 <center> <div class="slidecontainer">
  <input type="range" min="0" max="100" value="0" class="slider" id="armspeed">
-	<center id = "aout">Speed: 0</center>
+	<center id = "aout">Pump Speed: 0</center>
 </div>
 </center>
 <center><div id="instructions">
@@ -111,7 +115,7 @@ body{
 	console.log(valas);
 	
 	  valas = $("#armspeed")[0].value;
-	   $("#armspeed").html("Speed: " + valas);
+	   $("#armspeed").html("Pump Speed: " + valas);
 	   var xmlhttp = new XMLHttpRequest();	
         xmlhttp.open("GET", "input.php?as=" + valas, true)
         xmlhttp.send(); 
