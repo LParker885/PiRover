@@ -40,14 +40,14 @@ class Car:
         if g == 2:
             Motor.motor2.throttle = t
     def headingGo(self,h):
-        Servos.servo[0].angle = 90*h
+        Servos.servo[0].angle =max(0, min(180,90*h))
     def turntableGo(self,a):
         if a == 0:
             Servos.servo[2].angle = 90
         if a == 1:
-            Servos.servo[2].angle = 100
-        if a == 2:
             Servos.servo[2].angle = 80
+        if a == 2:
+            Servos.servo[2].angle = 100
 
     def driveGo(self,heading,throttle,turntablethrottle):
         Motor.motor2.throttle = throttle
@@ -59,9 +59,8 @@ class Car:
         time.sleep(teim)
         self.stop()
     def moveCam(self,x,y):
-        Servos.servo[14].angle = y
-        Servos.servo[15].angle = 180-x
-        time.sleep(0.01)
+        Servos.servo[14].angle = min(180,max(0,y))
+        Servos.servo[15].angle = min(180,max(0,180-x))
 
     def armGo(self,s,e,h,t,l):
         Servos.servo[5].angle = ((90*(-1*s))+90)
@@ -131,13 +130,13 @@ class Car:
            self.turntableGo(max(0,min(int(tt),180)))
         if(j1.isnumeric() and j1 != ''):
            if(at.isnumeric() and at != '' and int(at) <= 100):
-               self.jointGo(1,max(0,min(int(j1),180)),int(at))
+               self.jointGo(1,max(0,min(int(j1),2)),int(at))
         if(j2.isnumeric() and j2 != ''):
            if(at.isnumeric() and at != '' and int(at) <= 100):
-               self.jointGo(2,max(0,min(int(j2),180)),int(at))
+               self.jointGo(2,max(0,min(int(j2),2)),int(at))
         if(j3.isnumeric() and j3 != ''):
            if(at.isnumeric() and at != '' and int(at) <= 100):
-               self.jointGo(3,max(0,min(int(j3),180)),int(at))
+               self.jointGo(3,max(0,min(int(j3),2)),int(at))
 
 
 car = Car()
@@ -145,8 +144,3 @@ car = Car()
 while 1:
 
     car.moveFromFile()
-
-
-#possible ranges of paramaters!
-#For the drive function: self.drive(0-180,-1-1,0-180,time in seconds)
-#for the arm function: self.armGo(-1-1,-1-1,-1-1,0-100,time in seconds)

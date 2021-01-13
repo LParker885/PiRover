@@ -52,7 +52,7 @@ body{
 </head>
 <body class = "keyable">
 
-<center><img src = "http://192.168.1.128:8000/" id="camfeed" class = "keyable" alt="Camera feed from robot"></center>
+<center><img src = "http://192.168.1.128:8000/" id="camfeed" width = "640" height = "480" class = "keyable" alt="Camera feed from robot"></center>
 <center> <div class="slidecontainer">
  <input type="range" min="0" max="100" value="0" class="slider" id="tSlide">
 	<center id = "tout">Throttle: 0</center>
@@ -86,7 +86,8 @@ body{
    valj2 = 0;
    valj3 = 0;
    valas = 0;
-	down = true;	
+	down = true;
+	valtbspd = 0;	
 
 		$("#camfeed").mousedown(function(){
   		if(down == true){
@@ -132,6 +133,7 @@ body{
 	  
        
         });
+        
 	
 	$(".keyable").on("keypress", function(key) {
 	
@@ -321,6 +323,7 @@ body{
 	var xmlhttp = new XMLHttpRequest();	
          xmlhttp.open("GET", "input.php?val=" + valtable + "&&pos="+5, true);
         xmlhttp.send(); 
+        
 	}else if(valkey == "c"){
 
 	valtable = 0;
@@ -328,6 +331,7 @@ body{
 	var xmlhttp = new XMLHttpRequest();	
        xmlhttp.open("GET", "input.php?val=" + valtable + "&&pos="+5, true);
         xmlhttp.send(); 
+         
 	}else if(valkey == "u"){
 	
 	valj1 = 0;
